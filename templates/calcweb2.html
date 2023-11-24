@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #calc-container {
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        input, button {
+            font-size: 18px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 5px;
+            display: block;
+            width: 100%;
+        }
+
+        button {
+            background-color: #add8e6;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #8abbd7;
+        }
+
+        #resultado {
+            font-size: 20px;
+            margin-top: 10px;
+            color: #0066cc;
+        }
+
+        #error {
+            font-size: 20px;
+            margin-top: 10px;
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+
+<div id="calc-container">
+    <h1>Calculadora</h1>
+
+    <input type="number" id="num1" placeholder="Número 1" required>
+    <input type="number" id="num2" placeholder="Número 2" required>
+
+    <button onclick="realizarOperacion('suma')">Sumar</button>
+    <button onclick="realizarOperacion('resta')">Restar</button>
+    <button onclick="realizarOperacion('multiplicacion')">Multiplicar</button>
+    <button onclick="realizarOperacion('division')">Dividir</button>
+    <button onclick="realizarOperacion('potencia')">Potencia</button>
+    <button onclick="realizarOperacion('raiz')">Raíz Cuadrada</button>
+
+    <p id="resultado"></p>
+    <p id="error"></p>
+</div>
+
+<script>
+    function realizarOperacion(operacion) {
+        var num1 = parseFloat(document.getElementById('num1').value);
+        var num2 = parseFloat(document.getElementById('num2').value);
+
+        if (isNaN(num1) || isNaN(num2)) {
+            document.getElementById('error').innerText = "Por favor, ingresa números válidos.";
+            document.getElementById('resultado').innerText = "";
+            return;
+        }
+
+        var resultado;
+
+        switch (operacion) {
+            case 'suma':
+                resultado = num1 + num2;
+                break;
+            case 'resta':
+                resultado = num1 - num2;
+                break;
+            case 'multiplicacion':
+                resultado = num1 * num2;
+                break;
+            case 'division':
+                if (num2 !== 0) {
+                    resultado = num1 / num2;
+                } else {
+                    document.getElementById('error').innerText = "No se puede dividir entre cero.";
+                    document.getElementById('resultado').innerText = "";
+                    return;
+                }
+                break;
+            case 'potencia':
+                resultado = Math.pow(num1, num2);
+                break;
+            case 'raiz':
+                if (num1 >= 0) {
+                    resultado = Math.sqrt(num1);
+                } else {
+                    document.getElementById('error').innerText = "No se puede calcular la raíz cuadrada de un número negativo.";
+                    document.getElementById('resultado').innerText = "";
+                    return;
+                }
+                break;
+            default:
+                document.getElementById('error').innerText = "Operación no soportada.";
+                document.getElementById('resultado').innerText = "";
+                return;
+        }
+
+        document.getElementById('resultado').innerText = 'Resultado: ' + resultado;
+        document.getElementById('error').innerText = "";
+    }
+</script>
+
+</body>
+</html>
