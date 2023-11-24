@@ -10,7 +10,7 @@ def multiplicacion(num1, num2):
     # Realiza la operación de multiplicación
     return num1 * num2
 
-def division(num1, num2)
+def division(num1, num2):
     # Verifica que el divisor no sea cero
     if num2 != 0:
         # Realiza la operación de división
